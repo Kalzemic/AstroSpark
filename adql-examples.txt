@@ -1,0 +1,15 @@
+
+
+
+
+
+SELECT TOP 10 source_id, ra, dec FROM gaiadr3.gaia_source
+
+
+SELECT source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 83.63, 22.01, 0.5)) = 1
+
+
+SELECT source_id, ra, dec, parallax, pmra, pmdec FROM gaiadr3.gaia_source WHERE parallax > 100
+
+
+SELECT TOP 10 source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE phot_g_mean_mag < 6
