@@ -1,0 +1,8 @@
+[project]
+name = "astrostream"
+dependencies = [
+    "pyspark",
+    "confluent_kafka",
+    "queryparser-python3",
+    "healpy",
+]

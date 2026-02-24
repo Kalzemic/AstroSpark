@@ -27,6 +27,7 @@ class AsteroideEngine():
         print(adt.query)
         print(type(adt.tree))
         print(adt.tree.toStringTree(recog=adt.parser))
+        
         # urls = self.optimizer(query)
 
         # dataframe = self.session.read.parquet(*urls)
