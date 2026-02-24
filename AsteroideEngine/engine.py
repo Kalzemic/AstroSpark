@@ -17,17 +17,6 @@ class AsteroideEngine():
         self.engine = SparkEngine(session)
         self.optimizer = QueryOptimizer()
     
-    # def process(self, raw_query: str):
-    #     adt = ADQLQueryTranslator(raw_query)
-    #     pg_query = adt.to_postgresql()
-    #     print(f'pg_query: {pg_query}')
-    
-    #     qp = PostgreSQLQueryProcessor(pg_query)
-    #     qp.process_query()
-    
-    #     print(f'tables: {qp.tables}')
-    #     print(f'columns: {qp.columns}')
-    #     print(f'functions: {qp.functions}')
 
     def process(self, raw_query: str):
 
