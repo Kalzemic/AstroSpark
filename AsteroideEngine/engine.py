@@ -3,6 +3,8 @@ from confluent_kafka import Consumer
 from typing import Dict
 from optimizer.QueryOptimizer import QueryOptimizer
 from queryparser.adql import ADQLQueryTranslator
+from queryparser.adql import ADQLQueryTranslator
+from queryparser.postgresql import PostgreSQLQueryProcessor
 from SparkEngine.engine import SparkEngine
 
 
@@ -15,23 +17,46 @@ class AsteroideEngine():
         self.engine = SparkEngine(session)
         self.optimizer = QueryOptimizer()
     
+    # def process(self, raw_query: str):
+    #     adt = ADQLQueryTranslator(raw_query)
+    #     pg_query = adt.to_postgresql()
+    #     print(f'pg_query: {pg_query}')
+    
+    #     qp = PostgreSQLQueryProcessor(pg_query)
+    #     qp.process_query()
+    
+    #     print(f'tables: {qp.tables}')
+    #     print(f'columns: {qp.columns}')
+    #     print(f'functions: {qp.functions}')
 
     def process(self, raw_query: str):
 
-        query = ADQLQueryTranslator(raw_query)
+        adt = ADQLQueryTranslator()
 
-        urls = self.optimizer(query)
+        adt.set_query(raw_query)
+        adt.parse()
+        print(adt.query)
+        print(type(adt.tree))
+        print(adt.tree.toStringTree(recog=adt.parser))
+        # urls = self.optimizer(query)
 
-        dataframe = self.session.read.parquet(*urls)
+        # dataframe = self.session.read.parquet(*urls)
 
-        dataframe.show()
+        # dataframe.show()
 
     
     def run(self):
 
-        for message in self.consumer:
-
-            self.process(message.value.decode('utf-8'))
+        while True:
+            message = self.consumer.poll(timeout=1.0)
+        
+            if message is None:
+                continue
+            if message.error():
+                print(f"Consumer error: {message.error()}")
+                continue
+            
+            self.process(message.value().decode('utf-8'))
 
 
         
