@@ -31,9 +31,8 @@ class AsteroideEngine():
         
         urls = self.optimizer(adt)
 
-        # dataframe = self.session.read.parquet(*urls)
 
-        # dataframe.show()
+        self.engine.search(adt,urls)
 
     
     def run(self):
