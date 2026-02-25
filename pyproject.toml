@@ -1,8 +1,12 @@
 [project]
 name = "astrostream"
+version = "0.1.0"
 dependencies = [
     "pyspark",
     "confluent_kafka",
     "queryparser-python3",
     "healpy",
 ]
+
+[tool.setuptools]
+packages = ["optimizer", "SparkEngine", "AsteroideEngine"]
