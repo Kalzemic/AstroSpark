@@ -14,6 +14,7 @@ class AsteroideEngine():
         
         self.consumer = Consumer(kafka_config)
         self.consumer.subscribe([topic])
+
         self.engine = SparkEngine(session)
         self.optimizer = QueryOptimizer()
     
@@ -28,7 +29,7 @@ class AsteroideEngine():
         print(type(adt.tree))
         print(adt.tree.toStringTree(recog=adt.parser))
         
-        # urls = self.optimizer(query)
+        urls = self.optimizer(adt)
 
         # dataframe = self.session.read.parquet(*urls)
 
