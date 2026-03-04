@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 from queryparser.adql import ADQLQueryTranslator
 from pyspark.sql.functions import col, expr
 from pyspark.sql.types import StringType
-
+from utils.regex import fix_distance
 def main():
 
     print("enter query here:")
@@ -12,6 +12,7 @@ def main():
     adt.parse()
     sql_query =adt.to_postgresql()
     sql_query = sql_query.replace("gaiadr3.gaia_source", "gaia_source")
+    sql_query = fix_distance(sql_query)
 
     spark = SparkSession.builder.appName('Asteroide-Test').getOrCreate()
 

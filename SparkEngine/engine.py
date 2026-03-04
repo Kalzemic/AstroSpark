@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 from queryparser.adql import ADQLQueryTranslator
 from pyspark.sql.functions import col, expr
 from pyspark.sql.types import StringType
-
+from utils.regex import fix_distance
 
 class SparkEngine():
     def __init__(self, session: SparkSession):
@@ -41,6 +41,7 @@ class SparkEngine():
 
         sql_query = adt.to_postgresql()
         sql_query = sql_query.replace('"gaiadr3"."gaia_source"', 'gaia_source')
+        sql_query = fix_distance(sql_query)
         result_df = self.session.sql(sql_query)
         result_df.show()
 
