@@ -25,9 +25,7 @@ class AsteroideEngine():
 
         adt.set_query(raw_query)
         adt.parse()
-        print(adt.query)
-        print(type(adt.tree))
-        print(adt.tree.toStringTree(recog=adt.parser))
+
         
         urls = self.optimizer(adt)
 
