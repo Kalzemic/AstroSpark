@@ -4,7 +4,6 @@ from typing import Dict
 from optimizer.QueryOptimizer import QueryOptimizer
 from queryparser.adql import ADQLQueryTranslator
 from queryparser.adql import ADQLQueryTranslator
-from queryparser.postgresql import PostgreSQLQueryProcessor
 from SparkEngine.engine import SparkEngine
 
 
@@ -14,9 +13,9 @@ class AsteroideEngine():
         
         self.consumer = Consumer(kafka_config)
         self.consumer.subscribe([topic])
-
-        self.engine = SparkEngine(session)
         self.optimizer = QueryOptimizer()
+        self.engine = SparkEngine(session)
+        
     
 
     def process(self, raw_query: str):
@@ -25,11 +24,7 @@ class AsteroideEngine():
 
         adt.set_query(raw_query)
         adt.parse()
-
-        
         urls = self.optimizer(adt)
-
-
         self.engine.search(adt,urls)
 
     

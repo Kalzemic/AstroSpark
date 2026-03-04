@@ -1,4 +1,3 @@
-from confluent_kafka import Consumer
 from pyspark.sql import SparkSession
 from AsteroideEngine.engine import AsteroideEngine
 
