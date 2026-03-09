@@ -38,8 +38,11 @@ class AsteroideEngine():
             if message.error():
                 print(f"Consumer error: {message.error()}")
                 continue
-            
-            self.process(message.value().decode('utf-8'))
+            try:
+                self.process(message.value().decode('utf-8'))
+            except Exception as e:
+                print(f"Failed to process query: {e}")
+                continue
 
 
         

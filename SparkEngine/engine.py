@@ -42,5 +42,5 @@ class SparkEngine():
             sql_query = fix_distance(sql_query)
             sql_query = fix_contains(sql_query)
             self.session.sql(sql_query).show()
-        except: 
-            print('partition does not exist in the database')
+        except Exception as e: 
+            print(f"Spark query failed: {e}")

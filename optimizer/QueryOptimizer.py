@@ -14,6 +14,7 @@ class QueryOptimizer():
             start = (int(p) // 3112) * 3112
             end = start + 3111
             url = self._pixel_range_to_url(start, end)
+            print(f'url: {url}')
             if url not in urls:
                 urls.append(url)
         return urls

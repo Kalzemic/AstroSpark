@@ -1,11 +1,7 @@
 
 
 
-
-
-
-
-
+SELECT source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 37.9546, 89.2641, 1)) = 1
 
 SELECT source_id, ra, dec FROM gaiadr3.gaia_source WHERE 1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 312.95, 73.87, 10))
 
