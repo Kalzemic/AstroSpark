@@ -5,18 +5,26 @@ from queryparser.adql import ADQLQueryTranslator
 
 class QueryOptimizer():
 
+    def __init__(self):
+        self.ranges = [0,3112,5264,6602,7953,10235,12598, 14046, 15370, 16241]
     def _pixel_range_to_url(self,start: int, end: int, data_dir: str = "data") -> str:
         return f"{data_dir}/GaiaSource_{start:06d}-{end:06d}.csv.gz"
     
     def _pixels_to_urls(self, pixels) -> list[str]:
         urls = []
         for p in pixels:
-            start = (int(p) // 3112) * 3112
-            end = start + 3111
-            url = self._pixel_range_to_url(start, end)
-            if url not in urls:
-                urls.append(url)
-                print(f'url: {url}')
+
+            for i in range(len(self.ranges)):
+                if i == (len(self.ranges) -1 ) and p > self.ranges[i]:
+                    print (f'pixel out of range of current partitions: {p}')
+                    return []
+                if p >= self.ranges[i] and p <  self.ranges[i+1]:
+                    start = self.ranges[i]
+                    end = self.ranges[i + 1] - 1
+                    url = self._pixel_range_to_url(start,end)             
+                    if url not in urls:
+                        urls.append(url)
+                        print(f'url: {url}')
         return urls
     
     def _find_node(self, tree, rule_name, parser):
