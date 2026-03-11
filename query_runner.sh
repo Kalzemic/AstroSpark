@@ -1,1 +1,0 @@
-docker exec -it adql-kafka kafka-console-producer --bootstrap-server localhost:9092 --topic adql-queries
