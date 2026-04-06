@@ -1,27 +1,27 @@
-
-
-
 # Cone Search queries, should trigger the loading of HEALpix partition 000000-003111
-SELECT source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 37.9546, 89.2641, 10)) = 1
+
+SELECT source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 37.9546, 89.2641, 27)) = 1
 
 SELECT source_id, ra, dec FROM gaiadr3.gaia_source WHERE 1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 312.95, 73.87, 10))
 
-
 SELECT source_id, ra, dec FROM gaiadr3.gaia_source WHERE 1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 115.31, 78.28, 2))
 
+# KNN query, vector at HEALpix partition
 
-
-# KNN query, vector at HEALpix partition 
 SELECT TOP 10 source_id, ra, dec, DISTANCE(POINT('ICRS', ra, dec), POINT('ICRS', 312.95, 73.87)) AS dist FROM gaiadr3.gaia_source ORDER BY dist ASC
 
+SELECT TOP 10 source_id, ra, dec, DISTANCE(POINT('ICRS', ra, dec), POINT('ICRS', 37.9546, 89.2641)) AS dist FROM gaiadr3.gaia_source ORDER BY dist ASC
 
+SELECT TOP 10 source_id, ra, dec, DISTANCE(POINT('ICRS', ra, dec), POINT('ICRS', 115.31, 78.28)) AS dist FROM gaiadr3.gaia_source ORDER BY dist ASC
 
-# Cone search query in the 014046-016240 range, should trigger loading 2 partitions
+# Cone search queries in the 010235-016240 range, should trigger loading 2 partitions
+
 SELECT source_id, ra, dec, phot_g_mean_mag FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 83.63, 22.01, 0.5)) = 1
 
+SELECT source_id, ra, dec, parallax, pmra, pmdec FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 60.0, 30.0, 0.5)) = 1
+
+# KNN queries in the 010235 - 017659 range
 
 SELECT TOP 10 source_id, ra, dec, parallax, pmra, pmdec FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 60.0, 30.0, 0.5)) = 1 ORDER BY DISTANCE(POINT('ICRS', ra, dec), POINT('ICRS', 60.0, 30.0)) ASC
 
-
-
-SELECT source_id, ra, dec, parallax, pmra, pmdec FROM gaiadr3.gaia_source WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 60.0, 30.0, 0.5)) = 1
+SELECT TOP 2 source_id, ra, dec, DISTANCE(POINT('ICRS', ra, dec), POINT('ICRS', 83.63, 22.01)) AS dist FROM gaiadr3.gaia_source ORDER BY dist ASC

@@ -6,7 +6,7 @@ from queryparser.adql import ADQLQueryTranslator
 class QueryOptimizer():
 
     def __init__(self):
-        self.ranges = [0,3112,5264,6602,7953,10235,12598, 14046, 15370, 16241]
+        self.ranges = [0,3112,5264,6602,7953,10235,12598, 14046, 15370, 16241, 17019, 17659, 18029, 19161]
     def _pixel_range_to_url(self,start: int, end: int, data_dir: str = "data") -> str:
         return f"{data_dir}/GaiaSource_{start:06d}-{end:06d}.csv.gz"
     

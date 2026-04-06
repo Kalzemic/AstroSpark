@@ -5,7 +5,10 @@ from AsteroideEngine.engine import AsteroideEngine
 
 
 if __name__ == "__main__":
-    spark = SparkSession.builder.appName('Asteroide').getOrCreate()
+    spark = SparkSession.builder.appName('Asteroide') \
+                .config("spark.driver.memory", "4g") \
+                .config("spark.executor.memory", "4g") \
+                .getOrCreate()
     kafka_config = {'bootstrap.servers':'localhost:9092',
                     "group.id": "astro-query-group",
                     "auto.offset.reset": "earliest",
